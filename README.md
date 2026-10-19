@@ -20,7 +20,7 @@ Start (or `/reload`) pi in that project:
 
 - Every `*_AGENTS.md` file's content is injected into the system prompt on each turn — edits apply without reloading.
 - A boot notice in the transcript lists each loaded file with its line count.
-- The files are kept out of version control (the extension backfills `*_AGENTS.md` into `.gitignore`).
+- Nothing is added to `.gitignore` automatically — opt in per pattern with `/local-agents-local-ignore` or `/local-agents-global-ignore` (see below).
 
 ## Private Local Notes
 
@@ -28,11 +28,21 @@ One benefit of using this extension: you can load your own private local notes o
 
 ## Git Ignore
 
-Two ways to keep your `*_AGENTS.md` notes out of version control:
+Two ways to keep your `*_AGENTS.md` notes out of version control — both are opt-in slash commands, nothing is ignored automatically:
 
 ### Option 1: Global ignore (across all repositories)
 
-If you want Git to ignore these files across **every project** on your computer, set up a global exclude file — no repository `.gitignore` gets touched at all, which is handy in shared/team repos where you don't want to commit even the ignore rule.
+```
+/local-agents-global-ignore <file name|pattern>
+```
+
+Adds the pattern to your global Git exclude file (`core.excludesfile` when configured, otherwise Git's default `~/.config/git/ignore`). No repository `.gitignore` gets touched at all, which is handy in shared/team repos where you don't want to commit even the ignore rule. Example:
+
+```
+/local-agents-global-ignore *_AGENTS.md
+```
+
+Manually, the same thing looks like this:
 
 - **Create your global ignore file.** By default, Git looks for this at `~/.config/git/ignore`, but you can put one in your user home directory:
 
@@ -53,9 +63,19 @@ If you want Git to ignore these files across **every project** on your computer,
   *_AGENTS.md
   ```
 
-### Option 2: Per-repo `.gitignore` (automatic)
+### Option 2: Per-repo `.gitignore`
 
-The extension does this for you — that's the whole point. Whenever a `*_AGENTS.md` file exists (or is just created/edited via a tool), the extension backfills the `*_AGENTS.md` pattern into that repository's `.gitignore`. You only need Option 1 if you don't want the rule written to the repo's `.gitignore` at all.
+```
+/local-agents-local-ignore <file name|pattern>
+```
+
+Adds the pattern to the current repository's `.gitignore` (walking up from the session directory to find the repo root). Example:
+
+```
+/local-agents-local-ignore LOCAL_AGENTS.md
+```
+
+Use this when the ignore rule may be committed and shared; use Option 1 when it should stay entirely on your machine.
 
 ## Getting Started
 
