@@ -22,6 +22,41 @@ Start (or `/reload`) pi in that project:
 - A boot notice in the transcript lists each loaded file with its line count.
 - The files are kept out of version control (the extension backfills `*_AGENTS.md` into `.gitignore`).
 
+## Private Local Notes
+
+One benefit of using this extension: you can load your own private local notes on how to do things — things that might be specific to you, e.g. permissions, level of access, machine quirks — without having them show up in the git repo.
+
+## Git Ignore
+
+Two ways to keep your `*_AGENTS.md` notes out of version control:
+
+### Option 1: Global ignore (across all repositories)
+
+If you want Git to ignore these files across **every project** on your computer, set up a global exclude file — no repository `.gitignore` gets touched at all, which is handy in shared/team repos where you don't want to commit even the ignore rule.
+
+- **Create your global ignore file.** By default, Git looks for this at `~/.config/git/ignore`, but you can put one in your user home directory:
+
+  ```bash
+  touch ~/.gitignore_global
+  ```
+
+- **Tell Git to use it globally:**
+
+  ```bash
+  git config --global core.excludesfile ~/.gitignore_global
+  ```
+
+- **Add the notes rule to that file.** Open `~/.gitignore_global` in a text editor and add the pattern:
+
+  ```text
+  # Ignore all personal local agent notes everywhere
+  *_AGENTS.md
+  ```
+
+### Option 2: Per-repo `.gitignore` (automatic)
+
+The extension does this for you — that's the whole point. Whenever a `*_AGENTS.md` file exists (or is just created/edited via a tool), the extension backfills the `*_AGENTS.md` pattern into that repository's `.gitignore`. You only need Option 1 if you don't want the rule written to the repo's `.gitignore` at all.
+
 ## Getting Started
 
 Point your pi agent at this repo and ask:
