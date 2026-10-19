@@ -1,0 +1,47 @@
+{
+  "name": "pi-local-agents",
+  "version": "0.2.0",
+  "description": "Pi Coding Agent extension: loads any project-local *_AGENTS.md into context with a boot notice, kept out of version control",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eleqtrizit/pi-local-agents.git"
+  },
+  "author": "eleqtrizit",
+  "license": "MIT",
+  "keywords": [
+    "pi-package"
+  ],
+  "main": "extensions/index.ts",
+  "files": [
+    "extensions",
+    "skills",
+    "src",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": ">=0.84.0",
+    "@earendil-works/pi-tui": "*",
+    "typebox": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.4",
+    "@earendil-works/pi-tui": "^0.84.4",
+    "@types/node": "^25.3.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "pi": {
+    "image": "https://raw.githubusercontent.com/YOUR_USERNAME/hello-world-extension/main/extension-icon.png",
+    "extensions": [
+      "extensions/index.ts"
+    ],
+    "skills": [
+      "skills"
+    ]
+  }
+}
